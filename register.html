@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaFix - Đăng Ký</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS cho wrapper */
+        #wrapper {
+            min-height: 50vh; /* Chiều cao tối thiểu 100% viewport */
+            display: flex; /* Sử dụng flexbox */
+            justify-content: center; /* Canh giữa theo chiều ngang */
+            align-items: center; /* Canh giữa theo chiều dọc */
+            border-radius: 10px; /* Bo góc cho wrapper */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng cho wrapper */
+            padding: 50px; /* Padding bên trong wrapper */
+        }
+
+         /* Tạo màu sáng cho phần "Chưa có tài khoản? Đăng ký" */
+         .login-container p {
+            color: #007BFF; /* Màu xanh sáng hơn */
+            font-weight: bold;
+        }
+
+        .login-container p a {
+            color: #ff9800; /* Màu cam sáng hơn cho đường dẫn */
+            text-decoration: none;
+        }
+
+        .login-container p a:hover {
+            text-decoration: underline; /* Hiệu ứng underline khi hover */
+        }
+    </style>
+</head>
+<body style="background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg'); background-size: cover; background-repeat: no-repeat; background-position-y: -80px; color: #333;"></body>
+    <div id="wrapper">
+        <div class="login-container">
+            <h1 style="text-align: center; color: #007BFF;">LinguaFix</h1>
+            <h2>Đăng Ký</h2>
+            <form id="registerForm">
+                <input type="text" id="username" placeholder="Tên đăng nhập" required>
+                <br> <!-- Xuống dòng -->
+                <input type="password" id="password" placeholder="Mật khẩu" required>
+                <br> <!-- Xuống dòng -->
+                <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+                <br> <!-- Xuống dòng -->
+                <button type="submit">Đăng Ký</button>
+                <p id="error" class="error"></p>
+            </form>
+            <p>Đã có tài khoản? <a href="index.html">Đăng Nhập</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('error').innerText = 'Mật khẩu không khớp!';
+                return;
+            }
+
+            // Lưu thông tin tài khoản vào localStorage
+            localStorage.setItem(username, password);
+            alert('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
+            window.location.href = 'index.html'; // Điều hướng đến trang đăng nhập
+        });
+    </script>
+</body>
+</html>
