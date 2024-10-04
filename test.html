@@ -52,13 +52,26 @@
             border-radius: 5px;
             display: none;
         }
+
         #languageResult {
             color: red;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    //<body style="background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg'); background-size: cover; background-repeat: no-repeat; background-position-y: -80px; color: #333;"></body>
+    <body style="background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg'); background-size: cover; background-repeat: no-repeat; background-position-y: -80px; color: #333;"></body>
+
     <h1>LinguaFix - Trình Chỉnh Sửa Ngữ Pháp</h1>
 
     <textarea id="textInput" placeholder="Type or paste your English text here..."></textarea>
@@ -66,6 +79,9 @@
     <button onclick="checkGrammar()">Check Grammar</button>
 
     <div id="output"></div>
+
+    <!-- Thêm liên kết để quay lại trang đăng nhập -->
+    <a href="index.html" class="back-link">Quay lại đăng nhập</a>
 
     <script>
         async function checkGrammar() {
@@ -105,7 +121,5 @@
             `;
         }
     </script>
-
 </body>
 </html>
-    
