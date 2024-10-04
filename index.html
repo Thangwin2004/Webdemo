@@ -16,8 +16,9 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng cho wrapper */
             padding: 50px; /* Padding bên trong wrapper */
         }
-         /* Tạo màu sáng cho phần "Chưa có tài khoản? Đăng ký" */
-         .login-container p {
+
+        /* Tạo màu sáng cho phần "Chưa có tài khoản? Đăng ký" */
+        .login-container p {
             color: #007BFF; /* Màu xanh sáng hơn */
             font-weight: bold;
         }
@@ -30,38 +31,66 @@
         .login-container p a:hover {
             text-decoration: underline; /* Hiệu ứng underline khi hover */
         }
+
+
+        .toggle-password {
+            position: absolute;
+            right: 10px; /* Khoảng cách từ bên phải */
+            top: 50%; /* Canh giữa theo chiều dọc */
+            transform: translateY(-50%); /* Giảm chiều cao để hoàn toàn canh giữa */
+            cursor: pointer; /* Con trỏ biến thành tay khi hover */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body style="background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg'); background-size: cover; background-repeat: no-repeat; background-position-y: -80px; color: #333;"></body>
 <div id="wrapper">
-        <div class="login-container">
-            <h1 style="text-align: center; color: #007BFF;">LinguaFix</h1>
-            <h2>Đăng Nhập</h2>
-            <form id="loginForm">
-                <input type="text" id="username" placeholder="Tên đăng nhập" required>
-                <br> <!-- Xuống dòng -->
+    <div class="login-container">
+        <h1 style="text-align: center; color: #007BFF;">LinguaFix</h1>
+        <h2>Đăng Nhập</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Tên đăng nhập" required>
+            <br> <!-- Xuống dòng -->
+            <div class="password-container">
                 <input type="password" id="password" placeholder="Mật khẩu" required>
-                <br> <!-- Xuống dòng -->
-                <button type="submit">Đăng Nhập</button>
-                <p id="error" class="error"></p>
-            </form>
-            <p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
-        </div>
+                <span class="toggle-password" onclick="togglePassword()">👁️</span> <!-- Biểu tượng con mắt -->
+            </div>
+            <br> <!-- Xuống dòng -->
+            <button type="submit">Đăng Nhập</button>
+            <p id="error" class="error"></p>
+        </form>
+        <p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
     </div>
+</div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-            const storedPassword = localStorage.getItem(username);
-            if (storedPassword && storedPassword === password) {
-                window.location.href = 'test.html';
-            } else {
-                document.getElementById('error').innerText = 'Thông tin đăng nhập không chính xác.';
-            }
-        });
-    </script>
+        const storedPassword = localStorage.getItem(username);
+        if (storedPassword && storedPassword === password) {
+            window.location.href = 'test.html';
+        } else {
+            document.getElementById('error').innerText = 'Thông tin đăng nhập không chính xác.';
+        }
+    });
+
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const passwordType = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', passwordType);
+    }
+</script>
 </body>
 </html>
