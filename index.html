@@ -6,90 +6,140 @@
     <title>LinguaFix - Đăng Nhập</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* CSS cho wrapper */
         #wrapper {
-            min-height: 50vh; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
-            padding: 50px; 
+            min-height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            padding: 5%;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        
+        .login-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .login-container h1 {
+            color: #007BFF;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .login-container h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
         .login-container p {
-            color: #007BFF; 
+            color: #007BFF;
             font-weight: bold;
         }
 
         .login-container p a {
-            color: #ff9800; 
+            color: #ff9800;
             text-decoration: none;
         }
 
         .login-container p a:hover {
-            text-decoration: underline; 
-        }
-
-
-        .toggle-password {
-            position: absolute;
-            right: 10px; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            cursor: pointer; 
+            text-decoration: underline;
         }
 
         input[type="text"],
         input[type="password"] {
-            width: 100%;
-            padding: 10px;
+            width: 90%;
+            padding: 12px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        button {
+            width: 90%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #error {
+            color: red;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            #wrapper {
+                padding: 10%;
+            }
+
+            input[type="text"],
+            input[type="password"],
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
-<body style="background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg'); background-size: cover; background-repeat: no-repeat; background-position-y: -80px; color: #333;"></body>
-<div id="wrapper">
-    <div class="login-container">
-        <h1 style="text-align: center; color: #007BFF;">LinguaFix</h1>
-        <h2>Đăng Nhập</h2>
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Tên đăng nhập" required>
-            <br>
-            <div class="password-container">
-                <input type="password" id="password" placeholder="Mật khẩu" required>
-                <span class="toggle-password" onclick="togglePassword()">👁</span> 
-            </div>
-            <br>
-            <button type="submit">Đăng Nhập</button>
-            <p id="error" class="error"></p>
-        </form>
-        <p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+<body style="background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg'); background-size: cover; background-repeat: no-repeat; background-position-y: -80px; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div id="wrapper">
+        <div class="login-container">
+            <h1>LinguaFix</h1>
+            <h2>Đăng Nhập</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Tên đăng nhập" required>
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                    <span class="toggle-password" onclick="togglePassword()"></span>
+                </div>
+                <button type="submit">Đăng Nhập</button>
+                <p id="error" class="error"></p>
+            </form>
+            <p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+        </div>
     </div>
-</div>
 
-<script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-        const storedPassword = localStorage.getItem(username);
-        if (storedPassword && storedPassword === password) {
-            window.location.href = 'test.html';
-        } else {
-            document.getElementById('error').innerText = 'Thông tin đăng nhập không chính xác.';
+            const storedPassword = localStorage.getItem(username);
+            if (storedPassword && storedPassword === password) {
+                localStorage.setItem('loggedInUser', username);
+                window.location.href = 'test.html';
+            } else {
+                document.getElementById('error').innerText = 'Thông tin đăng nhập không chính xác.';
+            }
+        });
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordType = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', passwordType);
         }
-    });
-
-    function togglePassword() {
-        const passwordInput = document.getElementById('password');
-        const passwordType = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', passwordType);
-    }
-</script>
+    </script>
 </body>
 </html>
