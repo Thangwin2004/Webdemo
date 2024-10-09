@@ -184,7 +184,16 @@
             });
         }
         displayHistory();
-    
+    function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            
+            // Lưu tên đăng nhập vào localStorage
+            localStorage.setItem('loggedInUser', username);
+
+            // Chuyển hướng đến trang Grammar Checker
+            window.location.href = 'grammar-checker.html';
+        }
         async function checkGrammar() {
             const text = document.getElementById("textInput").value;
     
