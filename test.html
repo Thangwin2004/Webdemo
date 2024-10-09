@@ -14,81 +14,81 @@
             min-height: 100vh;
         }
 
-        /* Sidebar (mục lục bên trái) */
+        
         .sidebar {
             width: 250px;
             background-color: #343a40;
             color: white;
-            padding: 15px; /* Giảm padding cho sidebar */
+            padding: 15px; 
             box-sizing: border-box;
             position: fixed;
             top: 0;
             bottom: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Căn lên trên */
+            justify-content: flex-start;
         }
 
         .sidebar h2, .sidebar h3 {
             color: #ffffff;
             text-align: center;
-            margin: 10px 0; /* Giảm khoảng cách cho tiêu đề */
+            margin: 10px 0; 
         }
 
         .sidebar p {
-            margin: 5px 0; /* Giảm khoảng cách cho đoạn văn */
+            margin: 5px 0; 
         }
 
         .sidebar ul {
             list-style-type: none;
             padding-left: 0;
-            margin-top: 10px; /* Giảm khoảng cách trên danh sách */
+            margin-top: 10px; 
         }
 
         .sidebar ul li {
-            margin-bottom: 8px; /* Giảm khoảng cách giữa các mục */
+            margin-bottom: 8px;
         }
 
         .sidebar ul li a {
             color: white;
             text-decoration: none;
-            padding: 8px; /* Giảm padding cho đường dẫn */
+            padding: 8px; 
             display: block;
             background-color: #007BFF;
             border-radius: 5px;
-            text-align: center; /* Canh giữa đường dẫn */
+            text-align: center;
         }
 
         .sidebar ul li a:hover {
             background-color: #0056b3;
         }
 
-        /* Main content area */
+        
         .content {
             flex: 1;
             padding: 20px;
-            margin-left: 250px; /* Để không bị đè bởi sidebar */
+            margin-left: 250px; 
             background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position-y: -80px;
             color: #333;
             display: flex;
-            flex-direction: column; /* Sắp xếp nội dung theo chiều dọc */
-            align-items: center; /* Căn giữa theo chiều ngang */
-            justify-content: center; /* Căn giữa theo chiều dọc */
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
             text-align: center;
         }
 
         h1 {
             color: #007BFF;
-            font-size: 28px; /* Tăng kích thước tiêu đề */
-            margin-bottom: 20px; /* Tạo khoảng cách với nội dung bên dưới */
+            font-size: 28px;
+            margin-bottom: 20px; 
         }
 
         textarea {
             width: 80%;
-            max-width: 600px; /* Giới hạn chiều rộng tối đa */
+            max-width: 600px; 
             height: 150px;
             padding: 10px;
             font-size: 16px;
@@ -106,7 +106,7 @@
             cursor: pointer;
             font-size: 16px;
             width: 80%;
-            max-width: 600px; /* Giới hạn chiều rộng tối đa cho nút */
+            max-width: 600px; 
         }
 
         button:hover {
@@ -121,7 +121,7 @@
             border-radius: 5px;
             display: none;
             width: 80%;
-            max-width: 600px; /* Giới hạn chiều rộng tối đa */
+            max-width: 600px; 
         }
 
         .back-link {
@@ -137,18 +137,18 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar bên trái -->
+  
     <div class="sidebar">
         <h2>Tài khoản của bạn</h2>
         <p id="username">Tên đăng nhập:</p>
         <hr>
         <h3>Lịch sử chỉnh sửa</h3>
         <ul id="editHistory">
-            <!-- Lịch sử sẽ được thêm vào đây -->
+           
         </ul>
     </div>
 
-    <!-- Nội dung chính -->
+   
     <div class="content">
         <h1>LinguaFix - Trình Chỉnh Sửa Ngữ Pháp</h1>
 
@@ -159,7 +159,7 @@
         
 
 
-        <!-- Thêm liên kết để quay lại trang đăng nhập -->
+       
         <a href="index.html" class="back-link">Quay lại đăng nhập</a>
     </div>
 
@@ -168,26 +168,26 @@
             event.preventDefault();
             const username = document.getElementById('username').value;
             
-            // Lưu tên đăng nhập vào localStorage
+           
             localStorage.setItem('loggedInUser', username);
 
-            // Chuyển hướng đến trang Grammar Checker
+            
             window.location.href = 'grammar-checker.html';
         }
         
-        // Hiển thị tên đăng nhập trong sidebar
+        
         const loggedInUser = localStorage.getItem('loggedInUser');
         if (loggedInUser) {
             document.getElementById('username').innerText = `Tên đăng nhập: ${loggedInUser}`;
         }
     
-        // Lưu lịch sử chỉnh sửa
+        
         const editHistory = JSON.parse(localStorage.getItem('editHistory')) || [];
     
-        // Hiển thị lịch sử chỉnh sửa nếu có
+        
         const editHistoryList = document.getElementById('editHistory');
         function displayHistory() {
-            editHistoryList.innerHTML = ''; // Clear existing history
+            editHistoryList.innerHTML = ''; 
             editHistory.forEach((edit, index) => {
                 const li = document.createElement('li');
                 li.textContent = `Lần ${index + 1}: ${edit}`;
@@ -199,7 +199,7 @@
         async function checkGrammar() {
             const text = document.getElementById("textInput").value;
     
-            // Kiểm tra nếu đoạn văn bản trống
+           
             if (!text.trim()) {
                 alert("Please enter some text.");
                 return;
@@ -224,7 +224,7 @@
                     const replacement = match.replacements[0] ? match.replacements[0].value : match.context.text;
                     correctedText = correctedText.replace(match.context.text.substr(match.context.offset, match.context.length), replacement);
     
-                    // Phân loại lỗi
+                   
                     if (match.rule.category.id === 'TYPOS' || match.rule.category.id === 'PUNCTUATION') {
                         punctuationErrors.push(match);
                     } else if (match.rule.category.id === 'GRAMMAR' || match.rule.category.id === 'STYLE') {
@@ -233,7 +233,7 @@
                 });
             }
     
-            // Hiển thị kết quả
+      
             const outputDiv = document.getElementById('output');
             outputDiv.style.display = 'block';
             outputDiv.innerHTML = `
@@ -247,13 +247,13 @@
                 ${punctuationErrors.length > 0 ? generateErrorList(punctuationErrors) : '<p>No punctuation errors found.</p>'}
             `;
     
-            // Thêm kết quả vào lịch sử
+    
             editHistory.push(correctedText);
             localStorage.setItem('editHistory', JSON.stringify(editHistory));
             displayHistory();
         }
     
-        // Hàm tạo danh sách lỗi
+  
         function generateErrorList(errors) {
             let list = '<ul>';
             errors.forEach(error => {
@@ -263,7 +263,7 @@
             return list;
         }
     
-        // Nhận diện giọng nói (Web Speech API)
+       
         const startRecordingBtn = document.getElementById('start-recording');
         const textInput = document.getElementById('textInput');
     
@@ -273,15 +273,15 @@
             recognition.interimResults = false;
             recognition.lang = 'en-US';
     
-            // Bắt đầu ghi âm khi nhấn nút
+           
             startRecordingBtn.addEventListener('click', () => {
                 recognition.start();
             });
     
-            // Xử lý kết quả giọng nói
+           
             recognition.onresult = function(event) {
                 const transcript = event.results[0][0].transcript;
-                textInput.value = transcript; // Điền kết quả giọng nói vào textarea
+                textInput.value = transcript; 
             };
     
             recognition.onerror = function(event) {
