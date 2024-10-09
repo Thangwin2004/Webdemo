@@ -14,81 +14,81 @@
             min-height: 100vh;
         }
 
-       
+        /* Sidebar (mục lục bên trái) */
         .sidebar {
             width: 250px;
             background-color: #343a40;
             color: white;
-            padding: 15px; 
+            padding: 15px; /* Giảm padding cho sidebar */
             box-sizing: border-box;
             position: fixed;
             top: 0;
             bottom: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; 
+            justify-content: flex-start; /* Căn lên trên */
         }
 
         .sidebar h2, .sidebar h3 {
             color: #ffffff;
             text-align: center;
-            margin: 10px 0; 
+            margin: 10px 0; /* Giảm khoảng cách cho tiêu đề */
         }
 
         .sidebar p {
-            margin: 5px 0; 
+            margin: 5px 0; /* Giảm khoảng cách cho đoạn văn */
         }
 
         .sidebar ul {
             list-style-type: none;
             padding-left: 0;
-            margin-top: 10px; 
+            margin-top: 10px; /* Giảm khoảng cách trên danh sách */
         }
 
         .sidebar ul li {
-            margin-bottom: 8px;
+            margin-bottom: 8px; /* Giảm khoảng cách giữa các mục */
         }
 
         .sidebar ul li a {
             color: white;
             text-decoration: none;
-            padding: 8px;
+            padding: 8px; /* Giảm padding cho đường dẫn */
             display: block;
             background-color: #007BFF;
             border-radius: 5px;
-            text-align: center; 
+            text-align: center; /* Canh giữa đường dẫn */
         }
 
         .sidebar ul li a:hover {
             background-color: #0056b3;
         }
 
-        
+        /* Main content area */
         .content {
             flex: 1;
             padding: 20px;
-            margin-left: 250px; 
+            margin-left: 250px; /* Để không bị đè bởi sidebar */
             background-image: url('https://daisuquan.online/wp-content/uploads/2021/03/dich_ieng_anh.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position-y: -80px;
             color: #333;
             display: flex;
-            flex-direction: column; 
-            align-items: center;
-            justify-content: center; 
+            flex-direction: column; /* Sắp xếp nội dung theo chiều dọc */
+            align-items: center; /* Căn giữa theo chiều ngang */
+            justify-content: center; /* Căn giữa theo chiều dọc */
             text-align: center;
         }
 
         h1 {
             color: #007BFF;
-            font-size: 28px; 
-            margin-bottom: 20px; 
+            font-size: 28px; /* Tăng kích thước tiêu đề */
+            margin-bottom: 20px; /* Tạo khoảng cách với nội dung bên dưới */
         }
 
         textarea {
             width: 80%;
-            max-width: 600px; 
+            max-width: 600px; /* Giới hạn chiều rộng tối đa */
             height: 150px;
             padding: 10px;
             font-size: 16px;
@@ -106,7 +106,7 @@
             cursor: pointer;
             font-size: 16px;
             width: 80%;
-            max-width: 600px; 
+            max-width: 600px; /* Giới hạn chiều rộng tối đa cho nút */
         }
 
         button:hover {
@@ -121,7 +121,7 @@
             border-radius: 5px;
             display: none;
             width: 80%;
-            max-width: 600px; 
+            max-width: 600px; /* Giới hạn chiều rộng tối đa */
         }
 
         .back-link {
@@ -137,18 +137,18 @@
     </style>
 </head>
 <body>
-   
+    <!-- Sidebar bên trái -->
     <div class="sidebar">
         <h2>Tài khoản của bạn</h2>
         <p id="username">Tên đăng nhập:</p>
         <hr>
         <h3>Lịch sử chỉnh sửa</h3>
         <ul id="editHistory">
-           
+            <!-- Lịch sử sẽ được thêm vào đây -->
         </ul>
     </div>
 
-   
+    <!-- Nội dung chính -->
     <div class="content">
         <h1>LinguaFix - Trình Chỉnh Sửa Ngữ Pháp</h1>
 
@@ -159,32 +159,12 @@
         
 
 
-      
+        <!-- Thêm liên kết để quay lại trang đăng nhập -->
         <a href="index.html" class="back-link">Quay lại đăng nhập</a>
     </div>
 
     <script>
-       
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (loggedInUser) {
-            document.getElementById('username').innerText = `Tên đăng nhập: ${loggedInUser}`;
-        }
-    
-       
-        const editHistory = JSON.parse(localStorage.getItem('editHistory')) || [];
-    
-      
-        const editHistoryList = document.getElementById('editHistory');
-        function displayHistory() {
-            editHistoryList.innerHTML = ''; 
-            editHistory.forEach((edit, index) => {
-                const li = document.createElement('li');
-                li.textContent = `Lần ${index + 1}: ${edit}`;
-                editHistoryList.appendChild(li);
-            });
-        }
-        displayHistory();
-    function login(event) {
+        function login(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             
@@ -194,6 +174,28 @@
             // Chuyển hướng đến trang Grammar Checker
             window.location.href = 'grammar-checker.html';
         }
+        
+        // Hiển thị tên đăng nhập trong sidebar
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (loggedInUser) {
+            document.getElementById('username').innerText = `Tên đăng nhập: ${loggedInUser}`;
+        }
+    
+        // Lưu lịch sử chỉnh sửa
+        const editHistory = JSON.parse(localStorage.getItem('editHistory')) || [];
+    
+        // Hiển thị lịch sử chỉnh sửa nếu có
+        const editHistoryList = document.getElementById('editHistory');
+        function displayHistory() {
+            editHistoryList.innerHTML = ''; // Clear existing history
+            editHistory.forEach((edit, index) => {
+                const li = document.createElement('li');
+                li.textContent = `Lần ${index + 1}: ${edit}`;
+                editHistoryList.appendChild(li);
+            });
+        }
+        displayHistory();
+    
         async function checkGrammar() {
             const text = document.getElementById("textInput").value;
     
@@ -214,13 +216,24 @@
             const result = await response.json();
     
             let correctedText = text;
+            let structureErrors = [];
+            let punctuationErrors = [];
+    
             if (result.matches.length > 0) {
                 result.matches.forEach(match => {
                     const replacement = match.replacements[0] ? match.replacements[0].value : match.context.text;
                     correctedText = correctedText.replace(match.context.text.substr(match.context.offset, match.context.length), replacement);
+    
+                    // Phân loại lỗi
+                    if (match.rule.category.id === 'TYPOS' || match.rule.category.id === 'PUNCTUATION') {
+                        punctuationErrors.push(match);
+                    } else if (match.rule.category.id === 'GRAMMAR' || match.rule.category.id === 'STYLE') {
+                        structureErrors.push(match);
+                    }
                 });
             }
     
+            // Hiển thị kết quả
             const outputDiv = document.getElementById('output');
             outputDiv.style.display = 'block';
             outputDiv.innerHTML = `
@@ -228,15 +241,29 @@
                 <p>${text}</p>
                 <h3>Corrected Text:</h3>
                 <p>${correctedText}</p>
+                <h3>Sentence Structure Errors:</h3>
+                ${structureErrors.length > 0 ? generateErrorList(structureErrors) : '<p>No sentence structure errors found.</p>'}
+                <h3>Punctuation Errors:</h3>
+                ${punctuationErrors.length > 0 ? generateErrorList(punctuationErrors) : '<p>No punctuation errors found.</p>'}
             `;
     
-           
+            // Thêm kết quả vào lịch sử
             editHistory.push(correctedText);
             localStorage.setItem('editHistory', JSON.stringify(editHistory));
             displayHistory();
         }
     
-       
+        // Hàm tạo danh sách lỗi
+        function generateErrorList(errors) {
+            let list = '<ul>';
+            errors.forEach(error => {
+                list += `<li>${error.message} (context: <strong>${error.context.text.substr(error.context.offset, error.context.length)}</strong>)</li>`;
+            });
+            list += '</ul>';
+            return list;
+        }
+    
+        // Nhận diện giọng nói (Web Speech API)
         const startRecordingBtn = document.getElementById('start-recording');
         const textInput = document.getElementById('textInput');
     
@@ -246,15 +273,16 @@
             recognition.interimResults = false;
             recognition.lang = 'en-US';
     
-    
+            // Bắt đầu ghi âm khi nhấn nút
             startRecordingBtn.addEventListener('click', () => {
                 recognition.start();
             });
     
-
+            // Xử lý kết quả giọng nói
             recognition.onresult = function(event) {
                 const transcript = event.results[0][0].transcript;
-                textInput.value = transcript;
+                textInput.value = transcript; // Điền kết quả giọng nói vào textarea
+            };
     
             recognition.onerror = function(event) {
                 console.error(event.error);
@@ -264,6 +292,7 @@
             startRecordingBtn.innerText = 'Speech Recognition Not Supported';
         }
     </script>
+    
     
 </body>
 </html>
