@@ -14,6 +14,7 @@
             min-height: 100vh;
         }
 
+       
         .sidebar {
             width: 250px;
             background-color: #343a40;
@@ -45,13 +46,13 @@
         }
 
         .sidebar ul li {
-            margin-bottom: 8px; 
+            margin-bottom: 8px;
         }
 
         .sidebar ul li a {
             color: white;
             text-decoration: none;
-            padding: 8px; 
+            padding: 8px;
             display: block;
             background-color: #007BFF;
             border-radius: 5px;
@@ -62,7 +63,7 @@
             background-color: #0056b3;
         }
 
-      
+        
         .content {
             flex: 1;
             padding: 20px;
@@ -74,7 +75,7 @@
             color: #333;
             display: flex;
             flex-direction: column; 
-            align-items: center; 
+            align-items: center;
             justify-content: center; 
             text-align: center;
         }
@@ -82,7 +83,7 @@
         h1 {
             color: #007BFF;
             font-size: 28px; 
-            margin-bottom: 20px;
+            margin-bottom: 20px; 
         }
 
         textarea {
@@ -136,40 +137,46 @@
     </style>
 </head>
 <body>
+   
     <div class="sidebar">
         <h2>Tài khoản của bạn</h2>
         <p id="username">Tên đăng nhập: Chưa đăng nhập</p>
         <hr>
         <h3>Lịch sử chỉnh sửa</h3>
         <ul id="editHistory">
-        
+           
         </ul>
     </div>
 
-    
+   
     <div class="content">
         <h1>LinguaFix - Trình Chỉnh Sửa Ngữ Pháp</h1>
 
         <textarea id="textInput" placeholder="Type or paste your English text here..."></textarea>
         <button onclick="checkGrammar()">Check Grammar</button>
-
+        <button id="start-recording">Start Recording</button>
         <div id="output"></div>
+        
+
+
+      
         <a href="index.html" class="back-link">Quay lại đăng nhập</a>
     </div>
 
     <script>
-
+       
         const loggedInUser = localStorage.getItem('loggedInUser');
         if (loggedInUser) {
             document.getElementById('username').innerText = `Tên đăng nhập: ${loggedInUser}`;
         }
-
     
+       
         const editHistory = JSON.parse(localStorage.getItem('editHistory')) || [];
-
+    
+      
         const editHistoryList = document.getElementById('editHistory');
         function displayHistory() {
-            editHistoryList.innerHTML = '';
+            editHistoryList.innerHTML = ''; 
             editHistory.forEach((edit, index) => {
                 const li = document.createElement('li');
                 li.textContent = `Lần ${index + 1}: ${edit}`;
@@ -177,14 +184,16 @@
             });
         }
         displayHistory();
-
+    
         async function checkGrammar() {
             const text = document.getElementById("textInput").value;
+    
+            // Kiểm tra nếu đoạn văn bản trống
             if (!text.trim()) {
                 alert("Please enter some text.");
                 return;
             }
-
+    
             const response = await fetch('https://api.languagetool.org/v2/check', {
                 method: 'POST',
                 headers: {
@@ -192,9 +201,9 @@
                 },
                 body: `text=${encodeURIComponent(text)}&language=en-US`,
             });
-
+    
             const result = await response.json();
-
+    
             let correctedText = text;
             if (result.matches.length > 0) {
                 result.matches.forEach(match => {
@@ -202,7 +211,7 @@
                     correctedText = correctedText.replace(match.context.text.substr(match.context.offset, match.context.length), replacement);
                 });
             }
-
+    
             const outputDiv = document.getElementById('output');
             outputDiv.style.display = 'block';
             outputDiv.innerHTML = `
@@ -211,10 +220,41 @@
                 <h3>Corrected Text:</h3>
                 <p>${correctedText}</p>
             `;
+    
+           
             editHistory.push(correctedText);
             localStorage.setItem('editHistory', JSON.stringify(editHistory));
             displayHistory();
         }
+    
+       
+        const startRecordingBtn = document.getElementById('start-recording');
+        const textInput = document.getElementById('textInput');
+    
+        if ('webkitSpeechRecognition' in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+    
+    
+            startRecordingBtn.addEventListener('click', () => {
+                recognition.start();
+            });
+    
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                textInput.value = transcript;
+    
+            recognition.onerror = function(event) {
+                console.error(event.error);
+            };
+        } else {
+            startRecordingBtn.disabled = true;
+            startRecordingBtn.innerText = 'Speech Recognition Not Supported';
+        }
     </script>
+    
 </body>
 </html>
